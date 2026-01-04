@@ -6,15 +6,15 @@ This folder contains an Electron-based Windows scaffold for Mossy Launcher.
 
 ### Option 1: Download Pre-built Executable (Recommended)
 1. Go to the [Releases page](https://github.com/POINTYTHRUNDRA654/mossy-launcher/releases)
-2. Download either:
-   - `Mossy Launcher-<version>-x64.exe` (Installer - recommended)
-   - `Mossy Launcher-<version>-x64-portable.exe` (No installation required)
+2. Download the `Mossy Launcher-<version>-x64.exe` file
 3. Run the downloaded file
+   - If it's an installer, follow the installation prompts
+   - If it's portable, it will run directly without installation
 
 **Note:** If you see "cannot open on this PC" error:
 - Make sure you downloaded the `.exe` file from Releases, not the source code ZIP
 - Check that you're running 64-bit Windows (this app requires x64)
-- Try the portable version if the installer doesn't work
+- Windows Defender may block unsigned executables - click "More info" then "Run anyway"
 
 ### Option 2: Build from Source
 If no pre-built releases are available:
