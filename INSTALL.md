@@ -11,11 +11,12 @@ If you downloaded this as a ZIP file from GitHub, **you cannot run it directly**
 2. Download a `.exe` file (NOT the "Source code" ZIP)
 3. Run the downloaded `.exe` file
 
-**Files to look for:**
-- `Mossy Launcher-X.X.X-x64.exe` - NSIS Installer (installs to Program Files)
-- Another `Mossy Launcher-X.X.X-x64.exe` - Portable version (may have slightly different name or be in a separate folder)
+**What to download:**
+- Look for `.exe` files in the Releases section
+- electron-builder creates both an installer and a portable version
+- Download the file that best suits your needs
 
-> Note: electron-builder creates both files. The portable version can be run directly without installation.
+> Note: The exact filenames depend on the build configuration. Look for files starting with "Mossy Launcher".
 
 ### Option 2: Build It Yourself
 If there are no releases yet, you need to build from source:
