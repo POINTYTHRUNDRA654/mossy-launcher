@@ -5,6 +5,14 @@ const path = require('path');
 
 async function uploadJsonl(apiBase, token, filePath) {
   if (!apiBase || !token) throw new Error('Missing apiBase or token');
+  
+  // Validate apiBase is a valid URL
+  try {
+    new URL(apiBase);
+  } catch (err) {
+    throw new Error('Invalid apiBase URL format');
+  }
+  
   const url = `${apiBase.replace(/\/$/,'')}/v1/desktop/import-rl`;
   const stream = fs.createReadStream(filePath);
   const res = await fetch(url, {

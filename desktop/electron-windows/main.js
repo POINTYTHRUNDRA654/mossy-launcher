@@ -11,6 +11,7 @@ function createMainWindow() {
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
+      // sandbox: false is required for native modules (keytar, active-win)
       sandbox: false
     }
   });
