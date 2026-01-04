@@ -1,0 +1,54 @@
+{
+  "name": "mossy-launcher-desktop",
+  "version": "0.1.0",
+  "description": "Electron Windows 11 scaffold for Mossy Launcher (prototype)",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "NODE_ENV=development electron .",
+    "build": "electron-builder --win",
+    "package": "electron-builder"
+  },
+  "author": "POINTYTHRUNDRA654",
+  "license": "MIT",
+  "dependencies": {
+    "active-win": "^9.0.0",
+    "keytar": "^7.9.0",
+    "node-fetch": "^3.3.0",
+    "say": "^0.16.0"
+  },
+  "devDependencies": {
+    "electron": "^39.2.7",
+    "electron-builder": "^24.0.0"
+  },
+  "build": {
+    "appId": "com.pointythrundra.mossylauncher",
+    "productName": "Mossy Launcher",
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        },
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ],
+      "artifactName": "${productName}-${version}-${arch}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "POINTYTHRUNDRA654",
+        "repo": "mossy-launcher"
+      }
+    ]
+  }
+}
