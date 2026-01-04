@@ -1,0 +1,31 @@
+name: Desktop Build (Windows)
+
+on:
+  push:
+    branches:
+      - main
+      - desktop/electron-windows-scaffold
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Install deps & build
+        run: |
+          cd desktop/electron-windows
+          npm ci
+          npm run build
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: mossy-windows-build
+          path: desktop/electron-windows/dist/*.exe
+# Note: To publish releases automatically, configure GH_TOKEN or adjust electron-builder publish settings.
