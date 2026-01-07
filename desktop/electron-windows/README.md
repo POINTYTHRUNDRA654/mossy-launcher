@@ -2,6 +2,29 @@
 
 This folder contains an Electron-based Windows scaffold for Mossy Launcher.
 
+## AI Programs Detection Script
+
+**NEW:** Want to see which AI programs on your computer can work with Mossy Launcher?
+
+Run the detection script:
+```powershell
+.\detect-ai-programs.ps1
+```
+
+This PowerShell script will scan your system and display all detected AI programs including:
+- AI Assistants (ChatGPT, Claude, Perplexity)
+- AI-Powered Code Editors (Cursor, VS Code, JetBrains)
+- Browsers with AI features (Edge with Copilot, Chrome, Brave)
+- AI Art tools (Stable Diffusion, ComfyUI)
+- Writing assistants (Grammarly, Notion AI)
+- Development tools (Python, Anaconda, Jupyter)
+- And more!
+
+**To run the script:**
+1. Open PowerShell in this directory
+2. Run: `.\detect-ai-programs.ps1`
+3. If you get an execution policy error, run: `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` first
+
 ## For End Users
 
 ### Option 1: Download Pre-built Executable (Recommended)
