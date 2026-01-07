@@ -335,12 +335,10 @@ $pythonPaths = @(
     "${env:ProgramFiles}\Python*\python.exe",
     "C:\Python*\python.exe"
 )
-$pythonFound = $false
 foreach ($pattern in $pythonPaths) {
     $matches = Get-ChildItem $pattern -ErrorAction SilentlyContinue | Select-Object -First 1
     if ($matches) {
         Add-FoundProgram -Name "Python" -Description "Programming language (used for AI/ML development)" -Path $matches.FullName -Category "Development Tool"
-        $pythonFound = $true
         break
     }
 }
@@ -420,8 +418,9 @@ if ($foundPrograms.Count -eq 0) {
     $categories = $foundPrograms | Group-Object -Property Category | Sort-Object Name
     
     foreach ($category in $categories) {
+        $headerLength = [Math]::Max(0, 50 - $category.Name.Length)
         Write-Host "┌─ $($category.Name) " -ForegroundColor Cyan -NoNewline
-        Write-Host ("─" * (50 - $category.Name.Length)) -ForegroundColor Cyan
+        Write-Host ("─" * $headerLength) -ForegroundColor Cyan
         
         foreach ($program in $category.Group | Sort-Object Name) {
             Write-Host "│" -ForegroundColor Cyan

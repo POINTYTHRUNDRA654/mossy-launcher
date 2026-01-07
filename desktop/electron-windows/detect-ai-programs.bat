@@ -8,11 +8,9 @@ echo.
 REM Run PowerShell script with bypass execution policy for this session only
 powershell.exe -ExecutionPolicy Bypass -File "%~dp0detect-ai-programs.ps1"
 
-REM Check if PowerShell is not available
+REM Pause to show any error messages if PowerShell had issues
 if errorlevel 1 (
     echo.
-    echo ERROR: PowerShell is required to run this script.
-    echo PowerShell should be installed by default on Windows 7 and later.
-    echo.
+    echo The script encountered an error. Please check the output above.
     pause
 )
