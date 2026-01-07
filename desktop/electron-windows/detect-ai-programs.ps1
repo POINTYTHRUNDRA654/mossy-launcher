@@ -8,12 +8,6 @@ Write-Host ""
 
 $foundPrograms = @()
 
-# Function to check if a path exists
-function Test-ProgramPath {
-    param([string]$Path)
-    return Test-Path $Path
-}
-
 # Function to check registry for installed programs
 function Get-InstalledPrograms {
     param([string]$DisplayNamePattern)
@@ -68,7 +62,7 @@ $chatGptPaths = @(
     "$env:APPDATA\ChatGPT\ChatGPT.exe"
 )
 foreach ($path in $chatGptPaths) {
-    if (Test-ProgramPath $path) {
+    if (Test-Path $path) {
         Add-FoundProgram -Name "ChatGPT Desktop" -Description "OpenAI ChatGPT desktop application" -Path $path -Category "AI Assistant"
         break
     }
@@ -89,7 +83,7 @@ $claudePaths = @(
     "$env:APPDATA\Claude\Claude.exe"
 )
 foreach ($path in $claudePaths) {
-    if (Test-ProgramPath $path) {
+    if (Test-Path $path) {
         Add-FoundProgram -Name "Claude Desktop" -Description "Anthropic Claude AI assistant" -Path $path -Category "AI Assistant"
         break
     }
@@ -101,7 +95,7 @@ $perplexityPaths = @(
     "$env:APPDATA\Perplexity\Perplexity.exe"
 )
 foreach ($path in $perplexityPaths) {
-    if (Test-ProgramPath $path) {
+    if (Test-Path $path) {
         Add-FoundProgram -Name "Perplexity Desktop" -Description "Perplexity AI search assistant" -Path $path -Category "AI Assistant"
         break
     }
@@ -119,7 +113,7 @@ $cursorPaths = @(
     "${env:ProgramFiles}\Cursor\Cursor.exe"
 )
 foreach ($path in $cursorPaths) {
-    if (Test-ProgramPath $path) {
+    if (Test-Path $path) {
         Add-FoundProgram -Name "Cursor" -Description "AI-powered code editor" -Path $path -Category "Code Editor"
         break
     }
@@ -131,7 +125,7 @@ $vscodePaths = @(
     "${env:ProgramFiles}\Microsoft VS Code\Code.exe"
 )
 foreach ($path in $vscodePaths) {
-    if (Test-ProgramPath $path) {
+    if (Test-Path $path) {
         Add-FoundProgram -Name "Visual Studio Code" -Description "Code editor (can have AI extensions like GitHub Copilot)" -Path $path -Category "Code Editor"
         break
     }
@@ -142,7 +136,7 @@ $ghDesktopPaths = @(
     "$env:LOCALAPPDATA\GitHubDesktop\GitHubDesktop.exe"
 )
 foreach ($path in $ghDesktopPaths) {
-    if (Test-ProgramPath $path) {
+    if (Test-Path $path) {
         Add-FoundProgram -Name "GitHub Desktop" -Description "GitHub desktop client (integrates with Copilot)" -Path $path -Category "Development Tool"
         break
     }
@@ -175,7 +169,7 @@ $edgePaths = @(
     "${env:ProgramFiles}\Microsoft\Edge\Application\msedge.exe"
 )
 foreach ($path in $edgePaths) {
-    if (Test-ProgramPath $path) {
+    if (Test-Path $path) {
         Add-FoundProgram -Name "Microsoft Edge" -Description "Browser with built-in Copilot AI" -Path $path -Category "Web Browser"
         break
     }
@@ -188,7 +182,7 @@ $chromePaths = @(
     "$env:LOCALAPPDATA\Google\Chrome\Application\chrome.exe"
 )
 foreach ($path in $chromePaths) {
-    if (Test-ProgramPath $path) {
+    if (Test-Path $path) {
         Add-FoundProgram -Name "Google Chrome" -Description "Browser (supports ChatGPT, Claude, and other AI extensions)" -Path $path -Category "Web Browser"
         break
     }
@@ -200,7 +194,7 @@ $bravePaths = @(
     "$env:LOCALAPPDATA\BraveSoftware\Brave-Browser\Application\brave.exe"
 )
 foreach ($path in $bravePaths) {
-    if (Test-ProgramPath $path) {
+    if (Test-Path $path) {
         Add-FoundProgram -Name "Brave Browser" -Description "Browser with built-in Leo AI assistant" -Path $path -Category "Web Browser"
         break
     }
@@ -211,7 +205,7 @@ $arcPaths = @(
     "$env:LOCALAPPDATA\Programs\Arc\Arc.exe"
 )
 foreach ($path in $arcPaths) {
-    if (Test-ProgramPath $path) {
+    if (Test-Path $path) {
         Add-FoundProgram -Name "Arc Browser" -Description "Browser with AI features" -Path $path -Category "Web Browser"
         break
     }
@@ -253,8 +247,11 @@ foreach ($path in $comfyPaths) {
 }
 
 # Midjourney (check for Discord which is used to access it)
-if (Test-ProgramPath "$env:LOCALAPPDATA\Discord\app-*\Discord.exe") {
-    Add-FoundProgram -Name "Discord" -Description "Can access Midjourney AI art generator" -Path "$env:LOCALAPPDATA\Discord" -Category "AI Art Access"
+if (Test-Path "$env:LOCALAPPDATA\Discord") {
+    $discordApps = Get-ChildItem "$env:LOCALAPPDATA\Discord\app-*\Discord.exe" -ErrorAction SilentlyContinue | Select-Object -First 1
+    if ($discordApps) {
+        Add-FoundProgram -Name "Discord" -Description "Can access Midjourney AI art generator" -Path $discordApps.FullName -Category "AI Art Access"
+    }
 }
 
 # ========================================
@@ -268,7 +265,7 @@ $notionPaths = @(
     "$env:LOCALAPPDATA\Programs\Notion\Notion.exe"
 )
 foreach ($path in $notionPaths) {
-    if (Test-ProgramPath $path) {
+    if (Test-Path $path) {
         Add-FoundProgram -Name "Notion" -Description "Productivity tool with Notion AI" -Path $path -Category "Productivity"
         break
     }
@@ -280,7 +277,7 @@ $obsidianPaths = @(
     "$env:APPDATA\Obsidian\Obsidian.exe"
 )
 foreach ($path in $obsidianPaths) {
-    if (Test-ProgramPath $path) {
+    if (Test-Path $path) {
         Add-FoundProgram -Name "Obsidian" -Description "Note-taking app (supports AI plugins)" -Path $path -Category "Productivity"
         break
     }
@@ -291,7 +288,7 @@ $grammarlyPaths = @(
     "$env:LOCALAPPDATA\Programs\Grammarly\Grammarly.exe"
 )
 foreach ($path in $grammarlyPaths) {
-    if (Test-ProgramPath $path) {
+    if (Test-Path $path) {
         Add-FoundProgram -Name "Grammarly" -Description "AI-powered writing assistant" -Path $path -Category "Writing Assistant"
         break
     }
@@ -308,7 +305,7 @@ $elevenLabsPaths = @(
     "$env:LOCALAPPDATA\Programs\ElevenLabs\ElevenLabs.exe"
 )
 foreach ($path in $elevenLabsPaths) {
-    if (Test-ProgramPath $path) {
+    if (Test-Path $path) {
         Add-FoundProgram -Name "ElevenLabs" -Description "AI voice generation tool" -Path $path -Category "AI Voice"
         break
     }
@@ -320,7 +317,7 @@ $obsPaths = @(
     "${env:ProgramFiles(x86)}\obs-studio\bin\32bit\obs32.exe"
 )
 foreach ($path in $obsPaths) {
-    if (Test-ProgramPath $path) {
+    if (Test-Path $path) {
         Add-FoundProgram -Name "OBS Studio" -Description "Streaming software (supports AI plugins)" -Path $path -Category "Streaming/Recording"
         break
     }
@@ -356,7 +353,7 @@ $condaPaths = @(
     "C:\ProgramData\Miniconda3\python.exe"
 )
 foreach ($path in $condaPaths) {
-    if (Test-ProgramPath $path) {
+    if (Test-Path $path) {
         $condaType = if ($path -match "Anaconda") { "Anaconda" } else { "Miniconda" }
         Add-FoundProgram -Name $condaType -Description "Python distribution for data science and AI/ML" -Path (Split-Path $path) -Category "Development Tool"
         break
@@ -380,7 +377,7 @@ $nvidiaGFEPaths = @(
     "${env:ProgramFiles}\NVIDIA Corporation\NVIDIA GeForce Experience\NVIDIA GeForce Experience.exe"
 )
 foreach ($path in $nvidiaGFEPaths) {
-    if (Test-ProgramPath $path) {
+    if (Test-Path $path) {
         Add-FoundProgram -Name "NVIDIA GeForce Experience" -Description "Gaming software with AI features (DLSS, RTX)" -Path $path -Category "Gaming"
         break
     }
@@ -392,7 +389,7 @@ $steamPaths = @(
     "${env:ProgramFiles}\Steam\steam.exe"
 )
 foreach ($path in $steamPaths) {
-    if (Test-ProgramPath $path) {
+    if (Test-Path $path) {
         Add-FoundProgram -Name "Steam" -Description "Gaming platform (hosts AI-powered games)" -Path $path -Category "Gaming"
         break
     }
