@@ -1,5 +1,0 @@
-{
-  "CLOUD_API_BASE_URL": "https://api.example.com",
-  "AUTO_UPDATE_URL": "https://update-server.example.com", 
-  "DEV_AUTH_TOKEN": ""
-}
